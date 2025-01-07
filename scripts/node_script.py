@@ -3,21 +3,39 @@ import time
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
-size = comm.Get_size()
 
-def send_message(dest, msg):
-    comm.send(msg, dest=dest)
+def receive_connectivity():
+    """Receive connectivity map from orchestrator."""
+    try:
+        allowed_nodes = comm.recv(source=0)
+        print(f"Node {rank} allowed to communicate with: {allowed_nodes}")
+        return allowed_nodes
+    except Exception as e:
+        print(f"Node {rank} error receiving connectivity: {e}")
+        return []
 
-def receive_message():
-    msg = comm.recv()
-    print(f"Node {rank} received: {msg}")
-
-if rank == 0:
-    print("Orchestrator should control communication. Node script ready.")
-else:
-    while True:
-        time.sleep(2)  # Wait for orchestrator to allow communication
+def communicate_with_nodes(allowed_nodes):
+    """Simulate communication with other nodes."""
+    for node in allowed_nodes:
         try:
-            receive_message()
+            comm.send(f"Message from Node {rank}", dest=node)
+            print(f"Node {rank} sent message to Node {node}")
+        except Exception as e:
+            print(f"Node {rank} failed to communicate with Node {node}: {e}")
+
+def listen_for_messages():
+    """Listen for incoming messages."""
+    while True:
+        try:
+            msg = comm.recv()
+            print(f"Node {rank} received: {msg}")
         except:
-            pass  # No message received, likely due to disconnection
+            break
+
+if rank > 0:
+    print(f"Node {rank} started.")
+    while True:
+        allowed_nodes = receive_connectivity()
+        communicate_with_nodes(allowed_nodes)
+        listen_for_messages()
+        time.sleep(5)

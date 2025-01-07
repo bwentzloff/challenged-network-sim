@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  orchestrator:
+    build: .
+    container_name: orchestrator
+    environment:
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    command: ["python3", "/app/scripts/orchestrator.py"]
+    networks:
+      - mpi_network
+
+  node_1:
+    build: .
+    container_name: node_1
+    environment:
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    command: ["python3", "/app/scripts/node_script.py"]
+    networks:
+      - mpi_network
+
+  node_2:
+    build: .
+    container_name: node_2
+    environment:
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    command: ["python3", "/app/scripts/node_script.py"]
+    networks:
+      - mpi_network
+
+  node_3:
+    build: .
+    container_name: node_3
+    environment:
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    command: ["python3", "/app/scripts/node_script.py"]
+    networks:
+      - mpi_network
+
+  node_4:
+    build: .
+    container_name: node_4
+    environment:
+      - OMPI_ALLOW_RUN_AS_ROOT=1
+      - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+    command: ["python3", "/app/scripts/node_script.py"]
+    networks:
+      - mpi_network
+
+networks:
+  mpi_network:
+    driver: bridge

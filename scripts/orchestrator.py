@@ -6,6 +6,7 @@ class Orchestrator:
     def __init__(self, num_nodes):
         self.num_nodes = num_nodes
         self.connectivity = {i: [] for i in range(1, num_nodes)}  # Connectivity map
+        self.comm = MPI.COMM_WORLD
 
     def randomize_connectivity(self):
         """Randomly define which nodes can communicate."""
@@ -16,19 +17,17 @@ class Orchestrator:
             )
         print("Updated Connectivity Map:", self.connectivity)
 
-    def enforce_connectivity(self):
-        """Broadcast connectivity map to all nodes."""
+    def broadcast_connectivity(self):
+        """Send connectivity map to all nodes."""
         for node in range(1, self.num_nodes):
-            if node < size:  # Ensure we only send to valid ranks
-                comm.send(self.connectivity[node], dest=node)
+            self.comm.send(self.connectivity[node], dest=node)
 
     def start(self):
         print(f"Orchestrator started with {self.num_nodes - 1} worker nodes.")
         while True:
-            print("Randomizing connectivity...")
             self.randomize_connectivity()
             print("Broadcasting connectivity map...")
-            self.enforce_connectivity()
+            self.broadcast_connectivity()
             print("Connectivity map broadcast complete. Sleeping...")
             time.sleep(5)
 
@@ -37,14 +36,8 @@ if __name__ == "__main__":
     rank = comm.Get_rank()
     size = comm.Get_size()
 
-    if rank == 0:
+    if rank == 0:  # Orchestrator
         orchestrator = Orchestrator(num_nodes=size)
         orchestrator.start()
-    else:
-        print(f"Node {rank} started and waiting for messages...")
-        while True:
-            try:
-                allowed_connections = comm.recv(source=0)  # Get connectivity map
-                print(f"Node {rank} allowed to communicate with: {allowed_connections}")
-            except:
-                pass
+    else:  # Worker nodes are handled in node_script.py
+        pass
