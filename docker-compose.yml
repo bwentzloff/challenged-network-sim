@@ -7,47 +7,47 @@ services:
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["python3", "/app/scripts/orchestrator.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/orchestrator.py"]
     networks:
       - mpi_network
 
-  node_1:
+  node-1:
     build: .
-    container_name: node_1
+    container_name: node-1
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["python3", "/app/scripts/node_script.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
     networks:
       - mpi_network
 
-  node_2:
+  node-2:
     build: .
-    container_name: node_2
+    container_name: node-2
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["python3", "/app/scripts/node_script.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
     networks:
       - mpi_network
 
-  node_3:
+  node-3:
     build: .
-    container_name: node_3
+    container_name: node-3
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["python3", "/app/scripts/node_script.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
     networks:
       - mpi_network
 
-  node_4:
+  node-4:
     build: .
-    container_name: node_4
+    container_name: node-4
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["python3", "/app/scripts/node_script.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
     networks:
       - mpi_network
 
