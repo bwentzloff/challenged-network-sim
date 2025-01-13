@@ -10,3 +10,13 @@ This repository contains a simulation for challenged networks with intermittent 
 
 ## Documentation
 See the [Design Document](docs/Challenged_Network_Simulation_Design.md) for details on the system architecture and roadmap.
+
+## Getting Started
+
+```
+docker build
+```
+
+```
+docker-compose up
+```

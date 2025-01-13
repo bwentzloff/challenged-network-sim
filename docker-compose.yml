@@ -7,7 +7,7 @@ services:
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/orchestrator.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "plm_rsh_agent", "ssh", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/orchestrator.py"]
     networks:
       - mpi_network
 
@@ -17,7 +17,7 @@ services:
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "plm_rsh_agent", "ssh", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
     networks:
       - mpi_network
 
@@ -27,7 +27,7 @@ services:
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "plm_rsh_agent", "ssh", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
     networks:
       - mpi_network
 
@@ -37,7 +37,7 @@ services:
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "plm_rsh_agent", "ssh", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
     networks:
       - mpi_network
 
@@ -47,7 +47,7 @@ services:
     environment:
       - OMPI_ALLOW_RUN_AS_ROOT=1
       - OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-    command: ["mpiexec", "--allow-run-as-root", "--mca", "routed", "direct", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
+    command: ["mpiexec", "--allow-run-as-root", "--mca", "plm_rsh_agent", "ssh", "--mca", "btl_tcp_if_include", "eth0", "--hostfile", "/app/hostfile", "-n", "5", "python3", "/app/scripts/node_script.py"]
     networks:
       - mpi_network
 
